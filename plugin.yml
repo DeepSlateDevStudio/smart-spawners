@@ -1,0 +1,15 @@
+name: SmartSpawners
+version: 1.0.0
+main: deepslatedev\smartspawners\Main
+api: [5.0.0]
+load: STARTUP
+author: DeepSlate Dev
+description: "Stackable mob spawners and vanilla mobs that walk, chase and fight"
+commands:
+  spawner:
+    description: Give spawners or summon mobs
+    usage: /spawner give <mob> [player] [amount] | /spawner summon <mob> [amount] | /spawner list
+    permission: smartspawners.admin
+permissions:
+  smartspawners.admin:
+    default: op

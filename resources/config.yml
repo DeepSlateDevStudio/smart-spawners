@@ -1,0 +1,29 @@
+mobs:
+  speed: 0.2
+  follow-range: 16
+  leash: 6
+  despawn-seconds: 300
+
+spawners:
+  delay-min-seconds: 15
+  delay-max-seconds: 30
+  activation-range: 16
+  spawn-radius: 4
+  mobs-per-stack: 1
+  max-nearby: 12
+  max-stack: 64
+  drop-on-break: true
+  require-silk-touch: false
+
+messages:
+  given: "§aGave {amount}x {mob} spawner to {player}."
+  received: "§aYou received {amount}x {mob} spawner."
+  stacked: "§a{mob} spawner stacked: §f{stack}§a."
+  egg-set: "§aThis spawner now spawns §f{mob}§a."
+  stack-full: "§cThis spawner is already at the maximum stack ({max})."
+  info: "§e{mob} spawner §7- stack §f{stack}"
+  unknown-mob: "§cUnknown mob. Available: {mobs}"
+  player-not-found: "§cPlayer not found."
+  summoned: "§aSummoned {amount}x {mob}."
+  list: "§eMobs: §f{mobs}"
+  usage: "§cUsage: /spawner give <mob> [player] [amount] | /spawner summon <mob> [amount] | /spawner list"

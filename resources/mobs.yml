@@ -1,0 +1,139 @@
+zombie:
+  name: "Zombie"
+  mode: hostile
+  health: 20
+  damage: 3
+  speed: 0.22
+  xp: 5
+  drops: ["rotten_flesh:0-2"]
+husk:
+  name: "Husk"
+  mode: hostile
+  health: 20
+  damage: 3
+  speed: 0.22
+  xp: 5
+  drops: ["rotten_flesh:0-2"]
+skeleton:
+  name: "Skeleton"
+  mode: hostile
+  health: 20
+  damage: 3
+  speed: 0.22
+  xp: 5
+  drops: ["bone:0-2", "arrow:0-2"]
+stray:
+  name: "Stray"
+  mode: hostile
+  health: 20
+  damage: 3
+  speed: 0.22
+  xp: 5
+  drops: ["bone:0-2", "arrow:0-2"]
+spider:
+  name: "Spider"
+  mode: hostile
+  health: 16
+  damage: 2
+  speed: 0.27
+  xp: 5
+  drops: ["string:0-2", "spider_eye:0-1"]
+cave_spider:
+  name: "Cave Spider"
+  mode: hostile
+  health: 12
+  damage: 2
+  speed: 0.27
+  xp: 5
+  drops: ["string:0-2"]
+creeper:
+  name: "Creeper"
+  mode: hostile
+  health: 20
+  damage: 12
+  speed: 0.2
+  xp: 5
+  explodes: true
+  drops: ["gunpowder:0-2"]
+witch:
+  name: "Witch"
+  mode: hostile
+  health: 26
+  damage: 4
+  speed: 0.2
+  xp: 5
+  drops: ["redstone:0-2", "glowstone_dust:0-2", "sugar:0-2"]
+blaze:
+  name: "Blaze"
+  mode: hostile
+  health: 20
+  damage: 5
+  speed: 0.22
+  xp: 10
+  drops: ["blaze_rod:0-1"]
+enderman:
+  name: "Enderman"
+  mode: neutral
+  health: 40
+  damage: 6
+  speed: 0.3
+  xp: 5
+  drops: ["ender_pearl:0-1"]
+zombie_pigman:
+  name: "Zombified Piglin"
+  mode: neutral
+  health: 20
+  damage: 5
+  speed: 0.23
+  xp: 5
+  drops: ["rotten_flesh:0-1", "gold_nugget:0-1"]
+iron_golem:
+  name: "Iron Golem"
+  mode: neutral
+  health: 100
+  damage: 10
+  speed: 0.18
+  xp: 0
+  drops: ["iron_ingot:3-5", "poppy:0-2"]
+cow:
+  name: "Cow"
+  mode: passive
+  health: 10
+  speed: 0.18
+  xp: 2
+  drops: ["raw_beef:1-3", "leather:0-2"]
+pig:
+  name: "Pig"
+  mode: passive
+  health: 10
+  speed: 0.18
+  xp: 2
+  drops: ["raw_porkchop:1-3"]
+sheep:
+  name: "Sheep"
+  mode: passive
+  health: 8
+  speed: 0.18
+  xp: 2
+  drops: ["raw_mutton:1-2", "white_wool:1-1"]
+chicken:
+  name: "Chicken"
+  mode: passive
+  health: 4
+  speed: 0.16
+  xp: 2
+  drops: ["raw_chicken:1-1", "feather:0-2"]
+rabbit:
+  name: "Rabbit"
+  mode: passive
+  health: 3
+  speed: 0.22
+  xp: 2
+  drops: ["raw_rabbit:0-1", "rabbit_hide:0-1"]
+mooshroom:
+  name: "Mooshroom"
+  mode: passive
+  health: 10
+  speed: 0.18
+  xp: 2
+  drops: ["raw_beef:1-3", "leather:0-2"]
