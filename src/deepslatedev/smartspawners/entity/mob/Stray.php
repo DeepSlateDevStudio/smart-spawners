@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace deepslatedev\smartspawners\entity\mob;
 
-use deepslatedev\smartspawners\entity\SmartMob;
+use deepslatedev\smartspawners\entity\projectile\SlownessArrow;
+use deepslatedev\smartspawners\entity\Shots;
 use pocketmine\entity\EntitySizeInfo;
+use pocketmine\entity\Living;
 
-final class Stray extends SmartMob{
+final class Stray extends Skeleton{
     public static function mobKey(): string{
         return "stray";
     }
@@ -16,11 +18,12 @@ final class Stray extends SmartMob{
         return "minecraft:stray";
     }
 
-    protected function getInitialSizeInfo(): EntitySizeInfo{
-        return new EntitySizeInfo(1.99, 0.6);
-    }
-
     public function getName(): string{
         return "Stray";
+    }
+
+    protected function shoot(Living $target): int{
+        Shots::arrow($this, $target, SlownessArrow::class);
+        return mt_rand(30, 50);
     }
 }

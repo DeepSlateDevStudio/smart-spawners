@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace deepslatedev\smartspawners\entity\mob;
 
+use deepslatedev\smartspawners\entity\Shots;
 use deepslatedev\smartspawners\entity\SmartMob;
 use pocketmine\entity\EntitySizeInfo;
 
@@ -22,5 +23,9 @@ final class Pig extends SmartMob{
 
     public function getName(): string{
         return "Pig";
+    }
+
+    protected function temptItems(): array{
+        return Shots::itemIds("carrot", "potato", "beetroot");
     }
 }

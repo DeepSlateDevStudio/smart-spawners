@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace deepslatedev\smartspawners;
 
 use deepslatedev\smartspawners\entity\mob;
+use deepslatedev\smartspawners\entity\projectile\SlownessArrow;
+use deepslatedev\smartspawners\entity\projectile\SmallFireball;
 use deepslatedev\smartspawners\entity\SmartMob;
 use pocketmine\entity\EntityDataHelper;
 use pocketmine\entity\EntityFactory;
@@ -72,6 +74,8 @@ final class MobRegistry{
         foreach(self::CLASSES as $key => $class){
             $factory->register($class, static fn(World $world, CompoundTag $nbt): SmartMob => new $class(EntityDataHelper::parseLocation($nbt, $world), $nbt), ["SmartSpawners:" . $key]);
         }
+        $factory->register(SmallFireball::class, static fn(World $world, CompoundTag $nbt): SmallFireball => new SmallFireball(EntityDataHelper::parseLocation($nbt, $world), null, $nbt), ["SmartSpawners:small_fireball"]);
+        $factory->register(SlownessArrow::class, static fn(World $world, CompoundTag $nbt): SlownessArrow => new SlownessArrow(EntityDataHelper::parseLocation($nbt, $world), null, false, $nbt), ["SmartSpawners:slowness_arrow"]);
     }
 
     public static function exists(string $key): bool{

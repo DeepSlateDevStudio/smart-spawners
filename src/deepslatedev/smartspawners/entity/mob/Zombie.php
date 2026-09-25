@@ -7,7 +7,7 @@ namespace deepslatedev\smartspawners\entity\mob;
 use deepslatedev\smartspawners\entity\SmartMob;
 use pocketmine\entity\EntitySizeInfo;
 
-final class Zombie extends SmartMob{
+class Zombie extends SmartMob{
     public static function mobKey(): string{
         return "zombie";
     }
@@ -22,5 +22,9 @@ final class Zombie extends SmartMob{
 
     public function getName(): string{
         return "Zombie";
+    }
+
+    protected function burnsInDaylight(): bool{
+        return true;
     }
 }

@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace deepslatedev\smartspawners\entity\mob;
 
-use deepslatedev\smartspawners\entity\SmartMob;
+use pocketmine\entity\effect\EffectInstance;
+use pocketmine\entity\effect\VanillaEffects;
 use pocketmine\entity\EntitySizeInfo;
+use pocketmine\entity\Living;
 
-final class CaveSpider extends SmartMob{
+final class CaveSpider extends Spider{
     public static function mobKey(): string{
         return "cave_spider";
     }
@@ -22,5 +24,9 @@ final class CaveSpider extends SmartMob{
 
     public function getName(): string{
         return "Cave Spider";
+    }
+
+    protected function onMeleeHit(Living $target): void{
+        $target->getEffects()->add(new EffectInstance(VanillaEffects::POISON(), 140));
     }
 }
