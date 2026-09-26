@@ -9,6 +9,7 @@ use pocketmine\entity\Location;
 use pocketmine\item\ItemIdentifier;
 use pocketmine\item\SpawnEgg;
 use pocketmine\math\Vector3;
+use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\world\World;
 
 final class MobEgg extends SpawnEgg{
@@ -22,6 +23,6 @@ final class MobEgg extends SpawnEgg{
 
     protected function createEntity(World $world, Vector3 $pos, float $yaw, float $pitch): Entity{
         $class = MobRegistry::CLASSES[$this->mobKey];
-        return new $class(Location::fromObject($pos, $world, $yaw, $pitch));
+        return new $class(Location::fromObject($pos, $world, $yaw, $pitch), CompoundTag::create()->setByte("SSPersist", MobRegistry::get($this->mobKey)["mode"] === "hostile" ? 0 : 1));
     }
 }

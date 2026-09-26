@@ -28,4 +28,28 @@ final class Pig extends SmartMob{
     protected function temptItems(): array{
         return Shots::itemIds("carrot", "potato", "beetroot");
     }
+
+    public function climateVariant(): bool{
+        return true;
+    }
+
+    protected function saddleable(): bool{
+        return true;
+    }
+
+    protected function saddleNeedsTame(): bool{
+        return false;
+    }
+
+    protected function rideable(): bool{
+        return true;
+    }
+
+    protected function controlItem(): ?string{
+        return "carrot_on_a_stick";
+    }
+
+    protected function riderSpeed(): float{
+        return 0.25;
+    }
 }

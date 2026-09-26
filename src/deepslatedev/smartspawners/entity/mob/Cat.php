@@ -28,4 +28,20 @@ final class Cat extends SmartMob{
     protected function temptItems(): array{
         return Shots::itemIds("raw_fish", "raw_salmon");
     }
+
+    protected function tameItems(): array{
+        return Shots::itemIds("raw_fish", "raw_salmon");
+    }
+
+    protected function tameChance(): int{
+        return 3;
+    }
+
+    protected function canSit(): bool{
+        return true;
+    }
+
+    protected function breedNeedsTame(): bool{
+        return true;
+    }
 }

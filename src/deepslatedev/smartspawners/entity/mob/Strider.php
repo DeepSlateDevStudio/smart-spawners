@@ -37,4 +37,24 @@ final class Strider extends SmartMob{
     protected function temptItems(): array{
         return Shots::itemIds("warped_fungus");
     }
+
+    protected function saddleable(): bool{
+        return true;
+    }
+
+    protected function saddleNeedsTame(): bool{
+        return false;
+    }
+
+    protected function rideable(): bool{
+        return true;
+    }
+
+    protected function riderSpeed(): float{
+        return 0.25;
+    }
+
+    protected function controlItem(): ?string{
+        return "warped_fungus_on_a_stick";
+    }
 }

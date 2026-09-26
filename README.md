@@ -1,6 +1,6 @@
 # SmartSpawners
 
-Mobs on PocketMine-MP and Altay just stand there. SmartSpawners brings them to life: 72 vanilla mobs that walk, chase, shoot, fly, swim and flee, plus stackable spawners and working spawn eggs in the creative menu.
+Mobs on PocketMine-MP and Altay just stand there. SmartSpawners brings them to life: 72 vanilla mobs that walk, chase, shoot, fly, swim and flee, that you can breed, tame, ride and trade with, plus stackable spawners and working spawn eggs in the creative menu.
 
 No mods and nothing for players to install: every mob uses the model and animations the Bedrock client already has.
 
@@ -20,6 +20,15 @@ No mods and nothing for players to install: every mob uses the model and animati
 - **Slimes and magma cubes** hop at you in three sizes and split when they die.
 - **Animals** wander, panic when hit and follow you when you hold their food. Chickens lay eggs and fall slowly, sheep can be sheared and eat grass to grow their wool back, cows and mooshrooms can be milked, mooshrooms give stew and turn into cows when sheared, rabbits and frogs hop.
 - **Villagers and wandering traders** run away from zombies.
+
+**Farming, taming, riding and trading**
+
+- **Breeding:** feed two adults of the same species their food, they fall in love and a baby is born. Babies are smaller and grow up after 20 minutes (feeding them speeds it up).
+- **Taming:** wolves with bones, cats with fish, parrots with seeds. Tamed pets follow you, teleport to you when left behind, sit or stand when you click them, and wolves defend you and attack what you attack.
+- **Horses, donkeys, mules, llamas and camels:** mount them a few times to tame them, then put a saddle on and ride. Steer with your movement keys, jump with the jump key.
+- **Pigs and striders:** saddle them and steer with a carrot on a stick or a warped fungus on a stick. Saddles and both sticks are added to the creative menu.
+- **Villagers** get a profession (with its outfit) and trade with you. The wandering trader has his own offers. Every trade is editable in `trades.yml`.
+- Tamed, saddled, bred and egg-spawned animals are saved with the world.
 
 **Spawners and eggs, like vanilla**
 
@@ -60,13 +69,15 @@ zombie:
 
 Drops use `item:min-max`. New mobs added in an update are picked up automatically, your edits are kept.
 
-`config.yml` controls the spawners (delay, activation range, spawn radius, max mobs nearby, max stack, drops on break) and every message.
+`config.yml` controls the spawners (delay, activation range, spawn radius, max mobs nearby, max stack, drops on break), the variant data and every message.
+
+`trades.yml` holds the offers for each villager profession and the wandering trader, as `item:amount`.
 
 ## Good to know
 
-- Mobs spawned by the plugin don't save with the world and despawn after 5 minutes with no player around, so they never pile up.
-- Breeding, taming, riding and villager trading aren't included.
-- Some newer variants (cow, pig, chicken, wolf) may show their default texture, because the server software doesn't send variant data yet.
+- Mobs from spawners don't save with the world and despawn after 5 minutes with no player around, so they never pile up.
+- Cows, pigs and chickens get their climate variant data sent to the client. If a future client version shows them wrong, set `climate-variants: false` in `config.yml`.
+- Villager trades use a menu instead of the vanilla trading screen, which the server software doesn't support.
 - Mob kills work with any plugin that listens to entity deaths, jobs and stats included.
 
 ## Compatibility

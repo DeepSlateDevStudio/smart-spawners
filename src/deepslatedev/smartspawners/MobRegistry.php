@@ -92,6 +92,15 @@ final class MobRegistry{
     ];
 
     private static array $defs = [];
+    private static bool $climate = true;
+
+    public static function setClimateVariants(bool $enabled): void{
+        self::$climate = $enabled;
+    }
+
+    public static function climateVariants(): bool{
+        return self::$climate;
+    }
 
     public static function load(array $mobs, array $defaults): void{
         self::$defs = [];

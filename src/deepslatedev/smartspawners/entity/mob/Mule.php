@@ -28,4 +28,28 @@ final class Mule extends SmartMob{
     protected function temptItems(): array{
         return Shots::itemIds("golden_apple", "golden_carrot", "apple", "wheat", "sugar");
     }
+
+    protected function breedItems(): array{
+        return Shots::itemIds();
+    }
+
+    protected function tameByRiding(): bool{
+        return true;
+    }
+
+    protected function saddleable(): bool{
+        return true;
+    }
+
+    protected function rideable(): bool{
+        return true;
+    }
+
+    protected function riderSpeed(): float{
+        return 0.35;
+    }
+
+    protected function jumpPower(): float{
+        return 0.55;
+    }
 }

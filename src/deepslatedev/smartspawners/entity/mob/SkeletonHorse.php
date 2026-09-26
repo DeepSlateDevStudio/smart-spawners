@@ -23,4 +23,24 @@ final class SkeletonHorse extends SmartMob{
     public function getName(): string{
         return "Skeleton Horse";
     }
+
+    protected function tameByRiding(): bool{
+        return true;
+    }
+
+    protected function saddleable(): bool{
+        return true;
+    }
+
+    protected function rideable(): bool{
+        return true;
+    }
+
+    protected function riderSpeed(): float{
+        return 0.5;
+    }
+
+    protected function jumpPower(): float{
+        return 0.6;
+    }
 }

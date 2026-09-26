@@ -1,0 +1,75 @@
+professions:
+  farmer:
+    - {give: ["wheat:20"], get: "emerald:1"}
+    - {give: ["potato:26"], get: "emerald:1"}
+    - {give: ["carrot:22"], get: "emerald:1"}
+    - {give: ["emerald:1"], get: "bread:6"}
+    - {give: ["emerald:1"], get: "pumpkin_pie:4"}
+    - {give: ["emerald:1"], get: "apple:4"}
+  fisherman:
+    - {give: ["string:20"], get: "emerald:1"}
+    - {give: ["coal:10"], get: "emerald:1"}
+    - {give: ["raw_fish:15"], get: "emerald:1"}
+    - {give: ["emerald:1"], get: "cooked_fish:6"}
+  shepherd:
+    - {give: ["white_wool:18"], get: "emerald:1"}
+    - {give: ["emerald:2"], get: "shears:1"}
+    - {give: ["emerald:1"], get: "white_wool:1"}
+  fletcher:
+    - {give: ["stick:32"], get: "emerald:1"}
+    - {give: ["flint:26"], get: "emerald:1"}
+    - {give: ["emerald:1"], get: "arrow:16"}
+    - {give: ["emerald:2"], get: "bow:1"}
+  librarian:
+    - {give: ["paper:24"], get: "emerald:1"}
+    - {give: ["book:4"], get: "emerald:1"}
+    - {give: ["emerald:9"], get: "bookshelf:1"}
+    - {give: ["emerald:1"], get: "lantern:1"}
+  cartographer:
+    - {give: ["paper:24"], get: "emerald:1"}
+    - {give: ["glass_pane:11"], get: "emerald:1"}
+    - {give: ["emerald:4"], get: "compass:1"}
+  cleric:
+    - {give: ["rotten_flesh:32"], get: "emerald:1"}
+    - {give: ["gold_ingot:3"], get: "emerald:1"}
+    - {give: ["emerald:1"], get: "redstone:2"}
+    - {give: ["emerald:1"], get: "lapis_lazuli:1"}
+  armorer:
+    - {give: ["coal:15"], get: "emerald:1"}
+    - {give: ["emerald:5"], get: "iron_helmet:1"}
+    - {give: ["emerald:9"], get: "iron_chestplate:1"}
+    - {give: ["emerald:7"], get: "iron_leggings:1"}
+    - {give: ["emerald:4"], get: "iron_boots:1"}
+  weaponsmith:
+    - {give: ["coal:15"], get: "emerald:1"}
+    - {give: ["emerald:3"], get: "iron_axe:1"}
+    - {give: ["emerald:4"], get: "iron_sword:1"}
+  toolsmith:
+    - {give: ["coal:15"], get: "emerald:1"}
+    - {give: ["emerald:1"], get: "stone_axe:1"}
+    - {give: ["emerald:1"], get: "stone_shovel:1"}
+    - {give: ["emerald:1"], get: "stone_pickaxe:1"}
+    - {give: ["emerald:1"], get: "stone_hoe:1"}
+  butcher:
+    - {give: ["raw_chicken:14"], get: "emerald:1"}
+    - {give: ["raw_porkchop:7"], get: "emerald:1"}
+    - {give: ["raw_rabbit:4"], get: "emerald:1"}
+    - {give: ["emerald:1"], get: "cooked_porkchop:5"}
+  leatherworker:
+    - {give: ["leather:6"], get: "emerald:1"}
+    - {give: ["emerald:3"], get: "leather_pants:1"}
+    - {give: ["emerald:7"], get: "leather_tunic:1"}
+  mason:
+    - {give: ["clay_ball:10"], get: "emerald:1"}
+    - {give: ["emerald:1"], get: "bricks:10"}
+    - {give: ["emerald:1"], get: "polished_andesite:4"}
+
+wandering-trader:
+  - {give: ["emerald:1"], get: "fern:1"}
+  - {give: ["emerald:1"], get: "sugar_cane:1"}
+  - {give: ["emerald:1"], get: "pumpkin:1"}
+  - {give: ["emerald:3"], get: "cactus:1"}
+  - {give: ["emerald:1"], get: "vines:1"}
+  - {give: ["emerald:2"], get: "glowstone:1"}
+  - {give: ["emerald:5"], get: "packed_ice:1"}
+  - {give: ["emerald:3"], get: "slime_ball:1"}

@@ -7,6 +7,7 @@ namespace deepslatedev\smartspawners\entity;
 use deepslatedev\smartspawners\MobRegistry;
 use pocketmine\block\Water;
 use pocketmine\entity\animation\ArmSwingAnimation;
+use pocketmine\entity\Attribute;
 use pocketmine\entity\Entity;
 use pocketmine\entity\Living;
 use pocketmine\event\entity\EntityDamageByEntityEvent;
@@ -16,13 +17,23 @@ use pocketmine\item\StringToItemParser;
 use pocketmine\math\AxisAlignedBB;
 use pocketmine\math\Vector3;
 use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\network\mcpe\protocol\AddActorPacket;
 use pocketmine\network\mcpe\protocol\MobEquipmentPacket;
+use pocketmine\network\mcpe\protocol\types\entity\Attribute as NetworkAttribute;
+use pocketmine\network\mcpe\protocol\types\entity\EntityLink;
+use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataCollection;
+use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataFlags;
+use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
+use pocketmine\network\mcpe\protocol\types\entity\PropertySyncData;
 use pocketmine\network\mcpe\protocol\types\inventory\ContainerIds;
 use pocketmine\network\mcpe\protocol\types\inventory\ItemStackWrapper;
 use pocketmine\player\GameMode;
 use pocketmine\player\Player;
+use pocketmine\Server;
 
 abstract class SmartMob extends Living{
+    use Domestic;
+
     protected ?Vector3 $anchor = null;
     protected ?Vector3 $wanderTarget = null;
     protected int $wanderCooldown = 0;
@@ -49,10 +60,35 @@ abstract class SmartMob extends Living{
         $this->anchor = $this->location->asVector3();
         $this->wanderCooldown = mt_rand(20, 80);
         $this->rangedCooldown = mt_rand(20, 40);
+        $this->loadDomestic($nbt);
+    }
+
+    public function saveNBT(): CompoundTag{
+        $nbt = parent::saveNBT();
+        $this->saveDomestic($nbt);
+        return $nbt;
+    }
+
+    protected function syncNetworkData(EntityMetadataCollection $properties): void{
+        parent::syncNetworkData($properties);
+        $properties->setGenericFlag(EntityMetadataFlags::BABY, $this->baby);
+        $properties->setGenericFlag(EntityMetadataFlags::TAMED, $this->tamed);
+        $properties->setGenericFlag(EntityMetadataFlags::SITTING, $this->sitting);
+        $properties->setGenericFlag(EntityMetadataFlags::SADDLED, $this->saddled);
+        $properties->setGenericFlag(EntityMetadataFlags::INLOVE, $this->loveTicks > 0);
+        $owner = $this->owner === null ? null : Server::getInstance()->getPlayerExact($this->owner);
+        $properties->setLong(EntityMetadataProperties::OWNER_EID, $owner?->getId() ?? -1);
+    }
+
+    public function onInteract(Player $player, Vector3 $clickPos): bool{
+        if($this->domesticInteract($player)){
+            return true;
+        }
+        return parent::onInteract($player, $clickPos);
     }
 
     public function canSaveWithChunk(): bool{
-        return false;
+        return $this->keepsWithWorld();
     }
 
     public function heldItem(): ?Item{
@@ -60,7 +96,26 @@ abstract class SmartMob extends Living{
     }
 
     protected function sendSpawnPacket(Player $player): void{
-        parent::sendSpawnPacket($player);
+        $links = [];
+        foreach($this->getPassengers() as $index => $passenger){
+            $links[] = new EntityLink($this->getId(), $passenger->getId(), $index === 0 ? EntityLink::TYPE_RIDER : EntityLink::TYPE_PASSENGER, true, false, 0.0);
+        }
+        $synced = $this->climateVariant() && MobRegistry::climateVariants() ? new PropertySyncData([0 => 0], []) : new PropertySyncData([], []);
+        $player->getNetworkSession()->sendDataPacket(AddActorPacket::create(
+            $this->getId(),
+            $this->getId(),
+            static::getNetworkTypeId(),
+            $this->getOffsetPosition($this->location->asVector3()),
+            $this->getMotion(),
+            $this->location->pitch,
+            $this->location->yaw,
+            $this->location->yaw,
+            $this->location->yaw,
+            array_map(static fn(Attribute $attribute): NetworkAttribute => new NetworkAttribute($attribute->getId(), $attribute->getMinValue(), $attribute->getMaxValue(), $attribute->getValue(), $attribute->getDefaultValue(), []), $this->attributeMap->getAll()),
+            $this->getAllNetworkData(),
+            $synced,
+            $links
+        ));
         $item = $this->heldItem();
         if($item !== null){
             $session = $player->getNetworkSession();
@@ -78,11 +133,11 @@ abstract class SmartMob extends Living{
                 $drops[] = $item->setCount($count);
             }
         }
-        return $drops;
+        return $this->domesticDrops($drops);
     }
 
     public function getXpDropAmount(): int{
-        return $this->lastDamageCause instanceof EntityDamageByEntityEvent && $this->lastDamageCause->getDamager() instanceof Player ? (int) $this->def()["xp"] : 0;
+        return !$this->baby && $this->lastDamageCause instanceof EntityDamageByEntityEvent && $this->lastDamageCause->getDamager() instanceof Player ? (int) $this->def()["xp"] : 0;
     }
 
     protected function immuneTo(int $cause): bool{
@@ -104,6 +159,13 @@ abstract class SmartMob extends Living{
     }
 
     protected function onHurtBy(Entity $damager): void{
+        if($this->sitting){
+            $this->sitting = false;
+            $this->markDirty();
+        }
+        if($damager instanceof Player && $this->isOwnedBy($damager)){
+            return;
+        }
         if($this->def()["mode"] === "passive"){
             $this->fleeTicks = 80;
             $this->fleeFrom = $damager->getPosition()->asVector3();
@@ -216,10 +278,13 @@ abstract class SmartMob extends Living{
         if($this->swims() && !$this->breathesAir() && $this->age % 20 === 0 && !$this->inWater()){
             $this->attack(new EntityDamageEvent($this, EntityDamageEvent::CAUSE_SUFFOCATION, 1.0));
         }
+        if($this->domesticTick($tickDiff, $def)){
+            return;
+        }
         $nearest = $this->nearestPlayer(64.0);
         if($nearest === null){
             $this->lonelyTicks += $tickDiff;
-            if($def["despawn-seconds"] > 0 && $this->lonelyTicks > $def["despawn-seconds"] * 20){
+            if($def["despawn-seconds"] > 0 && $this->lonelyTicks > $def["despawn-seconds"] * 20 && !$this->keepsWithWorld()){
                 $this->flagForDespawn();
             }
             return;

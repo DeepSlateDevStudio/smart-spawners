@@ -25,6 +25,10 @@ final class Mooshroom extends Cow{
         return "Mooshroom";
     }
 
+    public function climateVariant(): bool{
+        return false;
+    }
+
     public function onInteract(Player $player, Vector3 $clickPos): bool{
         $hand = $player->getInventory()->getItemInHand();
         if($hand->getTypeId() === VanillaItems::BOWL()->getTypeId()){

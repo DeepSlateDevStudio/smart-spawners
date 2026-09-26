@@ -23,4 +23,24 @@ final class ZombieHorse extends SmartMob{
     public function getName(): string{
         return "Zombie Horse";
     }
+
+    protected function tameByRiding(): bool{
+        return true;
+    }
+
+    protected function saddleable(): bool{
+        return true;
+    }
+
+    protected function rideable(): bool{
+        return true;
+    }
+
+    protected function riderSpeed(): float{
+        return 0.4;
+    }
+
+    protected function jumpPower(): float{
+        return 0.55;
+    }
 }

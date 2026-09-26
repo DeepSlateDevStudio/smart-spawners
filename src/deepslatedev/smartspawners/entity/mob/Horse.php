@@ -28,4 +28,32 @@ final class Horse extends SmartMob{
     protected function temptItems(): array{
         return Shots::itemIds("golden_apple", "golden_carrot", "apple", "wheat", "sugar");
     }
+
+    protected function breedNeedsTame(): bool{
+        return true;
+    }
+
+    protected function breedItems(): array{
+        return Shots::itemIds("golden_apple", "golden_carrot");
+    }
+
+    protected function tameByRiding(): bool{
+        return true;
+    }
+
+    protected function saddleable(): bool{
+        return true;
+    }
+
+    protected function rideable(): bool{
+        return true;
+    }
+
+    protected function riderSpeed(): float{
+        return 0.5;
+    }
+
+    protected function jumpPower(): float{
+        return 0.7;
+    }
 }

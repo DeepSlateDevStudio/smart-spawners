@@ -28,4 +28,16 @@ final class TraderLlama extends SmartMob{
     protected function temptItems(): array{
         return Shots::itemIds("wheat", "hay_bale");
     }
+
+    protected function tameByRiding(): bool{
+        return true;
+    }
+
+    protected function rideable(): bool{
+        return true;
+    }
+
+    protected function riderSpeed(): float{
+        return 0.35;
+    }
 }

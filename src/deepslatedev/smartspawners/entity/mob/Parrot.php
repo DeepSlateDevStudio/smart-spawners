@@ -32,4 +32,20 @@ final class Parrot extends SmartMob{
     protected function temptItems(): array{
         return Shots::itemIds("wheat_seeds", "melon_seeds", "pumpkin_seeds", "beetroot_seeds");
     }
+
+    protected function tameItems(): array{
+        return Shots::itemIds("wheat_seeds", "melon_seeds", "pumpkin_seeds", "beetroot_seeds");
+    }
+
+    protected function tameChance(): int{
+        return 3;
+    }
+
+    protected function canSit(): bool{
+        return true;
+    }
+
+    protected function breedItems(): array{
+        return Shots::itemIds();
+    }
 }

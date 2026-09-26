@@ -32,6 +32,10 @@ final class Chicken extends SmartMob{
         return Shots::itemIds("wheat_seeds", "melon_seeds", "pumpkin_seeds", "beetroot_seeds");
     }
 
+    public function climateVariant(): bool{
+        return true;
+    }
+
     private int $eggTimer = 0;
 
     protected function extraTick(int $tickDiff): void{

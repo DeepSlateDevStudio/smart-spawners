@@ -57,4 +57,8 @@ class Cow extends SmartMob{
             $player->getWorld()->dropItem($player->getPosition(), $left);
         }
     }
+
+    public function climateVariant(): bool{
+        return true;
+    }
 }

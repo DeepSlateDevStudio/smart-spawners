@@ -5,8 +5,14 @@ declare(strict_types=1);
 namespace deepslatedev\smartspawners\entity\mob;
 
 use deepslatedev\smartspawners\entity\SmartMob;
+use deepslatedev\smartspawners\Trades;
 use pocketmine\entity\EntitySizeInfo;
 use pocketmine\math\AxisAlignedBB;
+use pocketmine\math\Vector3;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataCollection;
+use pocketmine\network\mcpe\protocol\types\entity\EntityMetadataProperties;
+use pocketmine\player\Player;
 
 final class WanderingTrader extends SmartMob{
     public static function mobKey(): string{
@@ -23,6 +29,32 @@ final class WanderingTrader extends SmartMob{
 
     public function getName(): string{
         return "Wandering Trader";
+    }
+
+    private string $profession = "";
+
+    protected function initEntity(CompoundTag $nbt): void{
+        parent::initEntity($nbt);
+        $this->profession = $nbt->getString("SSProfession", Trades::randomProfession("wandering"));
+    }
+
+    public function saveNBT(): CompoundTag{
+        $nbt = parent::saveNBT();
+        $nbt->setString("SSProfession", $this->profession);
+        return $nbt;
+    }
+
+    protected function syncNetworkData(EntityMetadataCollection $properties): void{
+        parent::syncNetworkData($properties);
+        $properties->setInt(EntityMetadataProperties::VARIANT, Trades::variant($this->profession));
+    }
+
+    public function onInteract(Player $player, Vector3 $clickPos): bool{
+        if($this->baby){
+            return parent::onInteract($player, $clickPos);
+        }
+        Trades::open($player, $this, $this->profession);
+        return true;
     }
 
     protected function extraTick(int $tickDiff): void{

@@ -3,6 +3,7 @@ mobs:
   follow-range: 16
   leash: 6
   despawn-seconds: 300
+  climate-variants: true
 
 spawners:
   delay-min-seconds: 15

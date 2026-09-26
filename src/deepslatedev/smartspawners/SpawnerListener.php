@@ -11,6 +11,7 @@ use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerInteractEvent;
 use pocketmine\item\enchantment\VanillaEnchantments;
+use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\scheduler\ClosureTask;
 use pocketmine\world\Position;
 
@@ -38,7 +39,8 @@ final class SpawnerListener implements Listener{
             $event->cancel();
             $class = MobRegistry::CLASSES[$eggMob];
             $spot = $block->getSide($event->getFace())->getPosition()->add(0.5, 0, 0.5);
-            (new $class(Location::fromObject($spot, $player->getWorld(), $player->getLocation()->yaw + 180, 0.0)))->spawnToAll();
+            $nbt = CompoundTag::create()->setByte("SSPersist", MobRegistry::get($eggMob)["mode"] === "hostile" ? 0 : 1);
+            (new $class(Location::fromObject($spot, $player->getWorld(), $player->getLocation()->yaw + 180, 0.0), $nbt))->spawnToAll();
             if(!$player->isCreative()){
                 $player->getInventory()->setItemInHand($item->setCount($item->getCount() - 1));
             }

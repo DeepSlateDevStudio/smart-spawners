@@ -28,10 +28,15 @@ final class Main extends PluginBase{
             }
         }
         MobRegistry::load($mobs, (array) $this->getConfig()->get("mobs", []));
+        MobRegistry::setClimateVariants((bool) $this->getConfig()->getNested("mobs.climate-variants", true));
         MobRegistry::register();
+        Items::register();
         Eggs::register();
+        $this->saveResource("trades.yml");
+        Trades::load($this, (new Config($this->getDataFolder() . "trades.yml", Config::YAML))->getAll());
         $this->spawners = new Spawners($this);
         $this->getServer()->getPluginManager()->registerEvents(new SpawnerListener($this, $this->spawners), $this);
+        $this->getServer()->getPluginManager()->registerEvents(new MobListener($this), $this);
         $this->getScheduler()->scheduleRepeatingTask(new ClosureTask(fn() => $this->spawners->tick()), 20);
         $this->getLogger()->info(count(MobRegistry::keys()) . " mobs ready");
     }

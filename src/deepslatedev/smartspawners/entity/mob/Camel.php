@@ -28,4 +28,24 @@ final class Camel extends SmartMob{
     protected function temptItems(): array{
         return Shots::itemIds("cactus");
     }
+
+    protected function saddleable(): bool{
+        return true;
+    }
+
+    protected function saddleNeedsTame(): bool{
+        return false;
+    }
+
+    protected function rideable(): bool{
+        return true;
+    }
+
+    protected function riderSpeed(): float{
+        return 0.3;
+    }
+
+    protected function jumpPower(): float{
+        return 0.6;
+    }
 }
