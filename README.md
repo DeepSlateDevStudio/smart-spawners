@@ -25,7 +25,7 @@ No mods and nothing for players to install: every mob uses the model and animati
 
 - **Breeding:** feed two adults of the same species their food, they fall in love and a baby is born. Babies are smaller and grow up after 20 minutes (feeding them speeds it up).
 - **Taming:** wolves with bones, cats with fish, parrots with seeds. Tamed pets follow you, teleport to you when left behind, sit or stand when you click them, and wolves defend you and attack what you attack.
-- **Horses, donkeys, mules, llamas and camels:** mount them a few times to tame them, then put a saddle on and ride. Steer with your movement keys, jump with the jump key.
+- **Horses, donkeys and mules:** mount them a few times to tame them, then put a saddle on and ride. Steer with your movement keys, jump with the jump key. Camels only need a saddle. Llamas can be tamed by riding them but, like in vanilla, can't be steered.
 - **Pigs and striders:** saddle them and steer with a carrot on a stick or a warped fungus on a stick. Saddles and both sticks are added to the creative menu.
 - **Villagers** get a profession (with its outfit) and trade with you. The wandering trader has his own offers. Every trade is editable in `trades.yml`.
 - Tamed, saddled, bred and egg-spawned animals are saved with the world.
