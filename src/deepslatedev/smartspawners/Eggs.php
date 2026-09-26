@@ -53,9 +53,12 @@ final class Eggs{
         if($item instanceof MobEgg){
             return $item->getMobKey();
         }
-        if($item->getTypeId() === VanillaItems::ZOMBIE_SPAWN_EGG()->getTypeId() && MobRegistry::exists("zombie")){
-            return "zombie";
-        }
-        return null;
+        $native = [
+            VanillaItems::ZOMBIE_SPAWN_EGG()->getTypeId() => "zombie",
+            VanillaItems::VILLAGER_SPAWN_EGG()->getTypeId() => "villager",
+            VanillaItems::SQUID_SPAWN_EGG()->getTypeId() => "squid",
+        ];
+        $key = $native[$item->getTypeId()] ?? null;
+        return $key !== null && MobRegistry::exists($key) ? $key : null;
     }
 }

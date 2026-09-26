@@ -18,7 +18,16 @@ final class Main extends PluginBase{
     protected function onEnable(): void{
         $this->saveDefaultConfig();
         $this->saveResource("mobs.yml");
-        MobRegistry::load((new Config($this->getDataFolder() . "mobs.yml", Config::YAML))->getAll(), (array) $this->getConfig()->get("mobs", []));
+        $mobs = (new Config($this->getDataFolder() . "mobs.yml", Config::YAML))->getAll();
+        $bundled = $this->getResource("mobs.yml");
+        if($bundled !== null){
+            $defaults = yaml_parse((string) stream_get_contents($bundled));
+            fclose($bundled);
+            if(is_array($defaults)){
+                $mobs += $defaults;
+            }
+        }
+        MobRegistry::load($mobs, (array) $this->getConfig()->get("mobs", []));
         MobRegistry::register();
         Eggs::register();
         $this->spawners = new Spawners($this);

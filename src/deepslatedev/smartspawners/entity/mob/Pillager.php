@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace deepslatedev\smartspawners\entity\mob;
 
+use deepslatedev\smartspawners\entity\Shots;
 use deepslatedev\smartspawners\entity\SmartMob;
 use pocketmine\entity\EntitySizeInfo;
+use pocketmine\entity\Living;
 use pocketmine\item\Item;
 use pocketmine\item\VanillaItems;
 
-final class ZombiePigman extends SmartMob{
+final class Pillager extends SmartMob{
     public static function mobKey(): string{
-        return "zombie_pigman";
+        return "pillager";
     }
 
     public static function getNetworkTypeId(): string{
-        return "minecraft:zombie_pigman";
+        return "minecraft:pillager";
     }
 
     protected function getInitialSizeInfo(): EntitySizeInfo{
@@ -23,14 +25,23 @@ final class ZombiePigman extends SmartMob{
     }
 
     public function getName(): string{
-        return "Zombified Piglin";
+        return "Pillager";
     }
 
     public function heldItem(): ?Item{
-        return VanillaItems::GOLDEN_SWORD();
+        return VanillaItems::BOW();
     }
 
-    protected function groupAnger(): bool{
-        return true;
+    protected function rangedRange(): float{
+        return 12.0;
+    }
+
+    protected function preferredDistance(): float{
+        return 6.0;
+    }
+
+    protected function shoot(Living $target): int{
+        Shots::arrow($this, $target);
+        return mt_rand(35, 55);
     }
 }

@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace deepslatedev\smartspawners\entity;
 
 use deepslatedev\smartspawners\MobRegistry;
+use pocketmine\block\Water;
 use pocketmine\entity\animation\ArmSwingAnimation;
 use pocketmine\entity\Entity;
 use pocketmine\entity\Living;
@@ -108,11 +109,39 @@ abstract class SmartMob extends Living{
             $this->fleeFrom = $damager->getPosition()->asVector3();
         }elseif($damager instanceof Living && !($damager instanceof Player && !$this->validPlayer($damager))){
             $this->angryAt = $damager->getId();
+            if($this->groupAnger()){
+                $c = $this->location;
+                foreach($this->getWorld()->getNearbyEntities(new AxisAlignedBB($c->x - 32, $c->y - 10, $c->z - 32, $c->x + 32, $c->y + 10, $c->z + 32), $this) as $entity){
+                    if($entity instanceof SmartMob && $entity::mobKey() === static::mobKey()){
+                        $entity->becomeAngry($damager->getId());
+                    }
+                }
+            }
         }
     }
 
     protected function canFly(): bool{
         return false;
+    }
+
+    protected function swims(): bool{
+        return false;
+    }
+
+    protected function breathesAir(): bool{
+        return true;
+    }
+
+    protected function hops(): bool{
+        return false;
+    }
+
+    protected function getInitialGravity(): float{
+        return $this->canFly() ? 0.0 : parent::getInitialGravity();
+    }
+
+    protected function inWater(): bool{
+        return $this->isUnderwater() || $this->getWorld()->getBlock($this->location->floor()) instanceof Water;
     }
 
     protected function burnsInDaylight(): bool{
@@ -136,6 +165,18 @@ abstract class SmartMob extends Living{
     }
 
     protected function onMeleeHit(Living $target): void{
+    }
+
+    protected function meleeDamage(array $def): float{
+        return (float) $def["damage"];
+    }
+
+    protected function groupAnger(): bool{
+        return false;
+    }
+
+    public function becomeAngry(int $targetId): void{
+        $this->angryAt = $targetId;
     }
 
     protected function temptItems(): array{
@@ -165,9 +206,15 @@ abstract class SmartMob extends Living{
     protected function think(int $tickDiff): void{
         $def = $this->def();
         $this->attackCooldown = max(0, $this->attackCooldown - $tickDiff);
+        if($this->swims() && $this->inWater() && !$this->canFly()){
+            $this->setMotion($this->motion->withComponents(null, $this->motion->y + $this->gravity * 0.9, null));
+        }
         $this->rangedCooldown = max(0, $this->rangedCooldown - $tickDiff);
         if($this->burnsInDaylight() && $this->age % 20 === 0 && $this->inSunlight()){
             $this->setOnFire(8);
+        }
+        if($this->swims() && !$this->breathesAir() && $this->age % 20 === 0 && !$this->inWater()){
+            $this->attack(new EntityDamageEvent($this, EntityDamageEvent::CAUSE_SUFFOCATION, 1.0));
         }
         $nearest = $this->nearestPlayer(64.0);
         if($nearest === null){
@@ -296,7 +343,7 @@ abstract class SmartMob extends Living{
         if($distance <= $reach && $this->attackCooldown === 0){
             $this->attackCooldown = 20;
             $this->broadcastAnimation(new ArmSwingAnimation($this));
-            $event = new EntityDamageByEntityEvent($this, $target, EntityDamageEvent::CAUSE_ENTITY_ATTACK, (float) $def["damage"]);
+            $event = new EntityDamageByEntityEvent($this, $target, EntityDamageEvent::CAUSE_ENTITY_ATTACK, $this->meleeDamage($def));
             $target->attack($event);
             if(!$event->isCancelled()){
                 $this->onMeleeHit($target);
@@ -338,13 +385,35 @@ abstract class SmartMob extends Living{
                 return;
             }
         }
-        $this->setMotion($this->motion->withComponents($this->motion->x * 0.5, null, $this->motion->z * 0.5));
+        if($this->canFly() || ($this->swims() && $this->inWater())){
+            $this->setMotion($this->motion->multiply(0.6));
+        }else{
+            $this->setMotion($this->motion->withComponents($this->motion->x * 0.5, null, $this->motion->z * 0.5));
+        }
+        if($this->swims() && !$this->breathesAir() && !$this->inWater() && $this->onGround && mt_rand(1, 10) === 1){
+            $this->setMotion(new Vector3(mt_rand(-10, 10) / 50, 0.35, mt_rand(-10, 10) / 50));
+            return;
+        }
         if(--$this->wanderCooldown > 0){
             return;
         }
         $anchor = $this->anchor ?? $this->location->asVector3();
         $leash = (int) $def["leash"];
-        $this->wanderTarget = $anchor->add(mt_rand(-$leash, $leash), 0, mt_rand(-$leash, $leash));
+        if($this->canFly()){
+            $base = $this->location->y - $anchor->y > 6 ? $anchor->y : $this->location->y;
+            $this->wanderTarget = new Vector3($anchor->x + mt_rand(-$leash, $leash), $base + mt_rand(-2, 3), $anchor->z + mt_rand(-$leash, $leash));
+        }elseif($this->swims() && $this->inWater()){
+            $this->wanderTarget = null;
+            for($i = 0; $i < 6; $i++){
+                $candidate = $this->location->add(mt_rand(-6, 6), mt_rand(-3, 3), mt_rand(-6, 6));
+                if($this->getWorld()->getBlock($candidate->floor()) instanceof Water){
+                    $this->wanderTarget = $candidate;
+                    break;
+                }
+            }
+        }else{
+            $this->wanderTarget = $anchor->add(mt_rand(-$leash, $leash), 0, mt_rand(-$leash, $leash));
+        }
         $this->wanderCooldown = 0;
     }
 
@@ -352,10 +421,26 @@ abstract class SmartMob extends Living{
         $dx = $target->x - $this->location->x;
         $dz = $target->z - $this->location->z;
         $length = sqrt($dx * $dx + $dz * $dz);
+        if($this->canFly() || ($this->swims() && $this->inWater())){
+            $dy = $target->y + ($this->canFly() ? 0.8 : 0.0) - $this->location->y;
+            $full = sqrt($dx * $dx + $dy * $dy + $dz * $dz);
+            if($full < 0.05){
+                return;
+            }
+            $this->setRotation(rad2deg(atan2(-$dx, $dz)), $this->location->pitch);
+            $this->setMotion(new Vector3($dx / $full * $speed, $dy / $full * $speed, $dz / $full * $speed));
+            return;
+        }
         if($length < 0.05){
             return;
         }
         $this->setRotation(rad2deg(atan2(-$dx, $dz)), $this->location->pitch);
+        if($this->hops()){
+            if($this->onGround){
+                $this->setMotion(new Vector3($dx / $length * $speed * 1.8, 0.42, $dz / $length * $speed * 1.8));
+            }
+            return;
+        }
         $motionY = $this->motion->y;
         if($this->isCollidedHorizontally && $this->onGround){
             $motionY = 0.42;

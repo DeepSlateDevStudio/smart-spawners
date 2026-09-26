@@ -137,3 +137,403 @@ mooshroom:
   speed: 0.18
   xp: 2
   drops: ["raw_beef:1-3", "leather:0-2"]
+zombie_villager:
+  name: "Zombie Villager"
+  mode: hostile
+  health: 20
+  damage: 3
+  speed: 0.22
+  xp: 5
+  drops: ["rotten_flesh:0-2"]
+drowned:
+  name: "Drowned"
+  mode: hostile
+  health: 20
+  damage: 3
+  speed: 0.22
+  xp: 5
+  drops: ["rotten_flesh:0-2", "copper_ingot:0-1"]
+piglin:
+  name: "Piglin"
+  mode: hostile
+  health: 16
+  damage: 5
+  speed: 0.24
+  xp: 5
+  drops: ["gold_nugget:0-2"]
+piglin_brute:
+  name: "Piglin Brute"
+  mode: hostile
+  health: 50
+  damage: 10
+  speed: 0.25
+  xp: 20
+  drops: ["gold_ingot:0-1"]
+vindicator:
+  name: "Vindicator"
+  mode: hostile
+  health: 24
+  damage: 10
+  speed: 0.24
+  xp: 5
+  drops: ["emerald:0-1"]
+pillager:
+  name: "Pillager"
+  mode: hostile
+  health: 24
+  damage: 3
+  speed: 0.24
+  xp: 5
+  drops: ["arrow:0-2"]
+bogged:
+  name: "Bogged"
+  mode: hostile
+  health: 16
+  damage: 3
+  speed: 0.22
+  xp: 5
+  drops: ["bone:0-2", "arrow:0-2"]
+wither_skeleton:
+  name: "Wither Skeleton"
+  mode: hostile
+  health: 20
+  damage: 8
+  speed: 0.25
+  xp: 5
+  drops: ["coal:0-1", "bone:0-2"]
+silverfish:
+  name: "Silverfish"
+  mode: hostile
+  health: 8
+  damage: 1
+  speed: 0.25
+  xp: 5
+  drops: []
+endermite:
+  name: "Endermite"
+  mode: hostile
+  health: 8
+  damage: 2
+  speed: 0.25
+  xp: 3
+  drops: []
+hoglin:
+  name: "Hoglin"
+  mode: hostile
+  health: 40
+  damage: 6
+  speed: 0.23
+  xp: 5
+  drops: ["raw_porkchop:2-4", "leather:0-1"]
+zoglin:
+  name: "Zoglin"
+  mode: hostile
+  health: 40
+  damage: 6
+  speed: 0.23
+  xp: 5
+  drops: ["rotten_flesh:1-3"]
+ravager:
+  name: "Ravager"
+  mode: hostile
+  health: 100
+  damage: 12
+  speed: 0.2
+  xp: 20
+  drops: ["saddle:1-1"]
+vex:
+  name: "Vex"
+  mode: hostile
+  health: 14
+  damage: 9
+  speed: 0.3
+  xp: 3
+  drops: []
+phantom:
+  name: "Phantom"
+  mode: hostile
+  health: 20
+  damage: 6
+  speed: 0.3
+  xp: 5
+  drops: ["phantom_membrane:0-1"]
+ghast:
+  name: "Ghast"
+  mode: hostile
+  health: 10
+  speed: 0.15
+  xp: 5
+  drops: ["ghast_tear:0-1", "gunpowder:0-2"]
+slime:
+  name: "Slime"
+  mode: hostile
+  health: 4
+  damage: 2
+  speed: 0.2
+  xp: 2
+  drops: ["slime_ball:0-2"]
+magma_cube:
+  name: "Magma Cube"
+  mode: hostile
+  health: 4
+  damage: 3
+  speed: 0.2
+  xp: 2
+  drops: ["magma_cream:0-1"]
+wolf:
+  name: "Wolf"
+  mode: neutral
+  health: 8
+  damage: 4
+  speed: 0.3
+  xp: 2
+  drops: []
+polar_bear:
+  name: "Polar Bear"
+  mode: neutral
+  health: 30
+  damage: 6
+  speed: 0.25
+  xp: 2
+  drops: ["raw_fish:0-2", "raw_salmon:0-2"]
+llama:
+  name: "Llama"
+  mode: passive
+  health: 22
+  speed: 0.18
+  xp: 2
+  drops: ["leather:0-2"]
+trader_llama:
+  name: "Trader Llama"
+  mode: passive
+  health: 22
+  speed: 0.18
+  xp: 2
+  drops: ["leather:0-2"]
+panda:
+  name: "Panda"
+  mode: passive
+  health: 20
+  speed: 0.15
+  xp: 2
+  drops: ["bamboo:0-2"]
+goat:
+  name: "Goat"
+  mode: passive
+  health: 10
+  speed: 0.2
+  xp: 2
+  drops: []
+fox:
+  name: "Fox"
+  mode: passive
+  health: 10
+  speed: 0.25
+  xp: 2
+  drops: []
+bee:
+  name: "Bee"
+  mode: neutral
+  health: 10
+  damage: 2
+  speed: 0.25
+  xp: 1
+  drops: []
+dolphin:
+  name: "Dolphin"
+  mode: neutral
+  health: 10
+  damage: 3
+  speed: 0.3
+  xp: 2
+  drops: ["raw_fish:0-1"]
+horse:
+  name: "Horse"
+  mode: passive
+  health: 20
+  speed: 0.25
+  xp: 2
+  drops: ["leather:0-2"]
+donkey:
+  name: "Donkey"
+  mode: passive
+  health: 20
+  speed: 0.2
+  xp: 2
+  drops: ["leather:0-2"]
+mule:
+  name: "Mule"
+  mode: passive
+  health: 20
+  speed: 0.2
+  xp: 2
+  drops: ["leather:0-2"]
+skeleton_horse:
+  name: "Skeleton Horse"
+  mode: passive
+  health: 15
+  speed: 0.25
+  xp: 2
+  drops: ["bone:0-2"]
+zombie_horse:
+  name: "Zombie Horse"
+  mode: passive
+  health: 15
+  speed: 0.22
+  xp: 2
+  drops: ["rotten_flesh:0-2"]
+camel:
+  name: "Camel"
+  mode: passive
+  health: 32
+  speed: 0.15
+  xp: 2
+  drops: []
+cat:
+  name: "Cat"
+  mode: passive
+  health: 10
+  speed: 0.25
+  xp: 2
+  drops: ["string:0-2"]
+ocelot:
+  name: "Ocelot"
+  mode: passive
+  health: 10
+  speed: 0.28
+  xp: 2
+  drops: []
+parrot:
+  name: "Parrot"
+  mode: passive
+  health: 6
+  speed: 0.2
+  xp: 2
+  drops: ["feather:1-2"]
+bat:
+  name: "Bat"
+  mode: passive
+  health: 6
+  speed: 0.2
+  xp: 0
+  drops: []
+allay:
+  name: "Allay"
+  mode: passive
+  health: 20
+  speed: 0.2
+  xp: 0
+  drops: []
+axolotl:
+  name: "Axolotl"
+  mode: neutral
+  health: 14
+  damage: 2
+  speed: 0.22
+  xp: 2
+  drops: []
+cod:
+  name: "Cod"
+  mode: passive
+  health: 3
+  speed: 0.18
+  xp: 1
+  drops: ["raw_fish:1-1"]
+salmon:
+  name: "Salmon"
+  mode: passive
+  health: 3
+  speed: 0.18
+  xp: 1
+  drops: ["raw_salmon:1-1"]
+pufferfish:
+  name: "Pufferfish"
+  mode: passive
+  health: 3
+  speed: 0.12
+  xp: 1
+  drops: ["pufferfish:1-1"]
+tropical_fish:
+  name: "Tropical Fish"
+  mode: passive
+  health: 3
+  speed: 0.18
+  xp: 1
+  drops: ["clownfish:1-1"]
+squid:
+  name: "Squid"
+  mode: passive
+  health: 10
+  speed: 0.15
+  xp: 2
+  drops: ["ink_sac:1-3"]
+glow_squid:
+  name: "Glow Squid"
+  mode: passive
+  health: 10
+  speed: 0.15
+  xp: 2
+  drops: ["glow_ink_sac:1-3"]
+turtle:
+  name: "Turtle"
+  mode: passive
+  health: 30
+  speed: 0.15
+  xp: 2
+  drops: ["seagrass:0-2"]
+frog:
+  name: "Frog"
+  mode: passive
+  health: 10
+  speed: 0.2
+  xp: 2
+  drops: []
+tadpole:
+  name: "Tadpole"
+  mode: passive
+  health: 6
+  speed: 0.15
+  xp: 0
+  drops: []
+sniffer:
+  name: "Sniffer"
+  mode: passive
+  health: 14
+  speed: 0.12
+  xp: 2
+  drops: []
+armadillo:
+  name: "Armadillo"
+  mode: passive
+  health: 12
+  speed: 0.18
+  xp: 2
+  drops: []
+strider:
+  name: "Strider"
+  mode: passive
+  health: 20
+  speed: 0.18
+  xp: 2
+  drops: ["string:0-5"]
+snow_golem:
+  name: "Snow Golem"
+  mode: neutral
+  health: 4
+  speed: 0.2
+  xp: 0
+  drops: ["snowball:0-15"]
+villager:
+  name: "Villager"
+  mode: passive
+  health: 20
+  speed: 0.2
+  xp: 0
+  drops: []
+wandering_trader:
+  name: "Wandering Trader"
+  mode: passive
+  health: 20
+  speed: 0.2
+  xp: 0
+  drops: []

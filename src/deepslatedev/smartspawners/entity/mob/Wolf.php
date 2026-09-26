@@ -6,28 +6,22 @@ namespace deepslatedev\smartspawners\entity\mob;
 
 use deepslatedev\smartspawners\entity\SmartMob;
 use pocketmine\entity\EntitySizeInfo;
-use pocketmine\item\Item;
-use pocketmine\item\VanillaItems;
 
-final class ZombiePigman extends SmartMob{
+final class Wolf extends SmartMob{
     public static function mobKey(): string{
-        return "zombie_pigman";
+        return "wolf";
     }
 
     public static function getNetworkTypeId(): string{
-        return "minecraft:zombie_pigman";
+        return "minecraft:wolf";
     }
 
     protected function getInitialSizeInfo(): EntitySizeInfo{
-        return new EntitySizeInfo(1.95, 0.6);
+        return new EntitySizeInfo(0.85, 0.6);
     }
 
     public function getName(): string{
-        return "Zombified Piglin";
-    }
-
-    public function heldItem(): ?Item{
-        return VanillaItems::GOLDEN_SWORD();
+        return "Wolf";
     }
 
     protected function groupAnger(): bool{

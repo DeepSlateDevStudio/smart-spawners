@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace deepslatedev\smartspawners;
 
 use deepslatedev\smartspawners\entity\mob;
+use deepslatedev\smartspawners\entity\projectile\LargeFireball;
+use deepslatedev\smartspawners\entity\projectile\PoisonArrow;
 use deepslatedev\smartspawners\entity\projectile\SlownessArrow;
 use deepslatedev\smartspawners\entity\projectile\SmallFireball;
 use deepslatedev\smartspawners\entity\SmartMob;
@@ -33,6 +35,60 @@ final class MobRegistry{
         "chicken" => mob\Chicken::class,
         "rabbit" => mob\Rabbit::class,
         "mooshroom" => mob\Mooshroom::class,
+        "zombie_villager" => mob\ZombieVillager::class,
+        "drowned" => mob\Drowned::class,
+        "piglin" => mob\Piglin::class,
+        "piglin_brute" => mob\PiglinBrute::class,
+        "vindicator" => mob\Vindicator::class,
+        "pillager" => mob\Pillager::class,
+        "bogged" => mob\Bogged::class,
+        "wither_skeleton" => mob\WitherSkeleton::class,
+        "silverfish" => mob\Silverfish::class,
+        "endermite" => mob\Endermite::class,
+        "hoglin" => mob\Hoglin::class,
+        "zoglin" => mob\Zoglin::class,
+        "ravager" => mob\Ravager::class,
+        "vex" => mob\Vex::class,
+        "phantom" => mob\Phantom::class,
+        "ghast" => mob\Ghast::class,
+        "slime" => mob\Slime::class,
+        "magma_cube" => mob\MagmaCube::class,
+        "wolf" => mob\Wolf::class,
+        "polar_bear" => mob\PolarBear::class,
+        "llama" => mob\Llama::class,
+        "trader_llama" => mob\TraderLlama::class,
+        "panda" => mob\Panda::class,
+        "goat" => mob\Goat::class,
+        "fox" => mob\Fox::class,
+        "bee" => mob\Bee::class,
+        "dolphin" => mob\Dolphin::class,
+        "horse" => mob\Horse::class,
+        "donkey" => mob\Donkey::class,
+        "mule" => mob\Mule::class,
+        "skeleton_horse" => mob\SkeletonHorse::class,
+        "zombie_horse" => mob\ZombieHorse::class,
+        "camel" => mob\Camel::class,
+        "cat" => mob\Cat::class,
+        "ocelot" => mob\Ocelot::class,
+        "parrot" => mob\Parrot::class,
+        "bat" => mob\Bat::class,
+        "allay" => mob\Allay::class,
+        "axolotl" => mob\Axolotl::class,
+        "cod" => mob\Cod::class,
+        "salmon" => mob\Salmon::class,
+        "pufferfish" => mob\Pufferfish::class,
+        "tropical_fish" => mob\TropicalFish::class,
+        "squid" => mob\Squid::class,
+        "glow_squid" => mob\GlowSquid::class,
+        "turtle" => mob\Turtle::class,
+        "frog" => mob\Frog::class,
+        "tadpole" => mob\Tadpole::class,
+        "sniffer" => mob\Sniffer::class,
+        "armadillo" => mob\Armadillo::class,
+        "strider" => mob\Strider::class,
+        "snow_golem" => mob\SnowGolem::class,
+        "villager" => mob\Villager::class,
+        "wandering_trader" => mob\WanderingTrader::class,
     ];
 
     private static array $defs = [];
@@ -75,6 +131,8 @@ final class MobRegistry{
             $factory->register($class, static fn(World $world, CompoundTag $nbt): SmartMob => new $class(EntityDataHelper::parseLocation($nbt, $world), $nbt), ["SmartSpawners:" . $key]);
         }
         $factory->register(SmallFireball::class, static fn(World $world, CompoundTag $nbt): SmallFireball => new SmallFireball(EntityDataHelper::parseLocation($nbt, $world), null, $nbt), ["SmartSpawners:small_fireball"]);
+        $factory->register(LargeFireball::class, static fn(World $world, CompoundTag $nbt): LargeFireball => new LargeFireball(EntityDataHelper::parseLocation($nbt, $world), null, $nbt), ["SmartSpawners:large_fireball"]);
+        $factory->register(PoisonArrow::class, static fn(World $world, CompoundTag $nbt): PoisonArrow => new PoisonArrow(EntityDataHelper::parseLocation($nbt, $world), null, false, $nbt), ["SmartSpawners:poison_arrow"]);
         $factory->register(SlownessArrow::class, static fn(World $world, CompoundTag $nbt): SlownessArrow => new SlownessArrow(EntityDataHelper::parseLocation($nbt, $world), null, false, $nbt), ["SmartSpawners:slowness_arrow"]);
     }
 

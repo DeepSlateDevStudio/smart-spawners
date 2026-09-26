@@ -9,13 +9,13 @@ use pocketmine\entity\EntitySizeInfo;
 use pocketmine\item\Item;
 use pocketmine\item\VanillaItems;
 
-final class ZombiePigman extends SmartMob{
+final class Piglin extends SmartMob{
     public static function mobKey(): string{
-        return "zombie_pigman";
+        return "piglin";
     }
 
     public static function getNetworkTypeId(): string{
-        return "minecraft:zombie_pigman";
+        return "minecraft:piglin";
     }
 
     protected function getInitialSizeInfo(): EntitySizeInfo{
@@ -23,14 +23,14 @@ final class ZombiePigman extends SmartMob{
     }
 
     public function getName(): string{
-        return "Zombified Piglin";
-    }
-
-    public function heldItem(): ?Item{
-        return VanillaItems::GOLDEN_SWORD();
+        return "Piglin";
     }
 
     protected function groupAnger(): bool{
         return true;
+    }
+
+    public function heldItem(): ?Item{
+        return VanillaItems::GOLDEN_SWORD();
     }
 }

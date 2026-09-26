@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace deepslatedev\smartspawners\entity;
 
+use deepslatedev\smartspawners\entity\projectile\LargeFireball;
 use deepslatedev\smartspawners\entity\projectile\SmallFireball;
 use pocketmine\entity\Living;
 use pocketmine\entity\Location;
 use pocketmine\entity\projectile\Arrow;
+use pocketmine\entity\projectile\Snowball;
 use pocketmine\entity\projectile\SplashPotion;
 use pocketmine\item\PotionType;
 use pocketmine\item\StringToItemParser;
@@ -65,6 +67,22 @@ final class Shots{
         $ball->setMotion($motion);
         $ball->spawnToAll();
         $from->getWorld()->addSound($from->getPosition(), new BlazeShootSound());
+    }
+
+    public static function largeFireball(Living $from, Living $target): void{
+        [$location, $motion] = self::aim($from, $target, 0.9, 0.0, 0.03);
+        $ball = new LargeFireball($location, $from);
+        $ball->setMotion($motion);
+        $ball->spawnToAll();
+        $from->getWorld()->addSound($from->getPosition(), new BlazeShootSound());
+    }
+
+    public static function snowball(Living $from, Living $target): void{
+        [$location, $motion] = self::aim($from, $target, 1.4, 0.15, 0.04);
+        $ball = new Snowball($location, $from);
+        $ball->setMotion($motion);
+        $ball->spawnToAll();
+        $from->getWorld()->addSound($from->getPosition(), new ThrowSound());
     }
 
     public static function potion(Living $from, Living $target, PotionType $type): void{
